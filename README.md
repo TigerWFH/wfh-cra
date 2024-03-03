@@ -1,5 +1,24 @@
 # Getting Started with Create React App
 
+## 关于 react18 的 compoenntDidMount 渲染两次问题
+
+> New Strict Mode Behaviors：To help surface these issues, React 18 introduces a new development-only check to Strict Mode
+> https://react.dev/blog/2022/03/29/react-v18#new-strict-mode-behaviors
+
+## 关于 react 性能优化点
+
+## 关于 chromedevtool profiler
+
+## 关于 Profiler
+
+- Profiler 使用【每次 commit 算是一个周期？？？】
+  > - id：标识 committed react tree
+  > - onRender: (id, phase, actualDuration[实际渲染时间], baseDuration[预估渲染时间], startTime[渲染开始时间戳], commitTime[提交时间戳]) => void
+
+## 关于@welldone-software/why-did-you-render
+
+- 首次渲染不会打印日志
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

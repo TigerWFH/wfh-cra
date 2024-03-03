@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import React, { Profiler } from 'react';
 
+let timer = null;
 // Profiler用于测试一个react tree的性能
 class Child extends React.Component {
   static whyDidYouRender = true;
@@ -37,6 +38,25 @@ class Parent extends React.Component {
     };
   }
 
+  componentDidMount() {
+    console.log('wfh--didMount');
+    if (timer === null) {
+      timer = setTimeout(() => {
+        console.log('wfh--didMount666');
+        this.setState({
+          name: 'didMount'
+        });
+      }, 1000);
+    }
+  }
+
+  componentWillUnmount() {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  }
+
   onRender = (
     id,
     phase,
@@ -49,7 +69,6 @@ class Parent extends React.Component {
   };
 
   changeState = () => {
-    console.log('wfh-----change-state');
     this.setState({
       name: 'monkey'
     });
@@ -70,13 +89,6 @@ function App() {
       <header className="App-header">
         <Parent />
         <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer">
-          Learn React
-        </a>
       </header>
     </div>
   );
