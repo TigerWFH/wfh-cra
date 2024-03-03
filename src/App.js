@@ -29,6 +29,13 @@ class Child extends React.Component {
 
 class Parent extends React.Component {
   static whyDidYouRender = true;
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: 'default'
+    };
+  }
 
   onRender = (
     id,
@@ -41,9 +48,17 @@ class Parent extends React.Component {
     console.log('wfh---profiler---', id, phase, actualDuration);
   };
 
+  changeState = () => {
+    console.log('wfh-----change-state');
+    this.setState({
+      name: 'monkey'
+    });
+  };
+
   render() {
     return (
       <Profiler id="parent" onRender={this.onRender}>
+        <div onClick={this.changeState}>change state</div>
         <Child />
       </Profiler>
     );
