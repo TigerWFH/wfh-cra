@@ -39,10 +39,8 @@ class Parent extends React.Component {
   }
 
   componentDidMount() {
-    console.log('wfh--didMount');
     if (timer === null) {
       timer = setTimeout(() => {
-        console.log('wfh--didMount666');
         this.setState({
           name: 'didMount'
         });

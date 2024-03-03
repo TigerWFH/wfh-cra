@@ -7,17 +7,23 @@
 
 ## 关于 react 性能优化点
 
+- 设置合理的状态结构设计，不相关状态进行拆分
+- 消除不稳定数据带来的不必要渲染
+  > - useMemo、useCallback 集合 memo
+  > - PureComponent
+  > - shouldComponentUpdate
+
 ## 关于 chromedevtool profiler
 
 ## 关于 Profiler
 
-- Profiler 使用【每次 commit 算是一个周期？？？】
+- Profiler 使用，每一次 render 都会打印日志【每次 commit 算是一个周期？？？】
   > - id：标识 committed react tree
   > - onRender: (id, phase, actualDuration[实际渲染时间], baseDuration[预估渲染时间], startTime[渲染开始时间戳], commitTime[提交时间戳]) => void
 
 ## 关于@welldone-software/why-did-you-render
 
-- 首次渲染不会打印日志
+- 首次渲染不会打印日志【已经验证，rerender 可以只打印不必要的 rerender，也可以打印全部的 rerender】
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
