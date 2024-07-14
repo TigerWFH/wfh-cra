@@ -2,6 +2,44 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { Profiler } from 'react';
+import { io } from 'socket.io-client';
+import rrwebPlayer from 'rrweb-player';
+import 'rrweb-player/dist/style.css';
+
+const helper_id = 'wfh_helper_01';
+let player = null;
+let userId = null;
+
+const socket = io('http://localhost:6789', {
+  query: {
+    helperId: 'wfh_helper_01'
+  }
+});
+
+socket.on('connect', () => {
+  console.log('wfh----helper-connect');
+  socket.emit('register_helper', helper_id);
+  socket.emit('register_helper', helper_id, () => {
+    console.log('wfh----register_helper__ack');
+  });
+  socket.emit('get_user', (usrId) => {
+    console.log('wfh---get_user-->', usrId);
+    userId = usrId;
+  });
+});
+
+socket.on('record', (event, ackFn) => {
+  if (player) {
+    player.addEvent(event);
+  } else {
+    player = new rrwebPlayer({
+      target: document.querySelector('helper_player'), // customizable root element
+      props: {
+        event
+      }
+    });
+  }
+});
 
 let timer = null;
 // Profiler用于测试一个react tree的性能
@@ -82,10 +120,16 @@ class Parent extends React.Component {
   }
 }
 function App() {
+  const onShare = () => {
+    socket.emit('start_record');
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <Parent />
+        <button onClick={onShare}>开始同屏</button>
+        <div className="helper_player"></div>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
     </div>
